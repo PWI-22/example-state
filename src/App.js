@@ -4,25 +4,52 @@ class App extends React.Component{
 
     constructor() { 
         super()
+        console.log('App Constructor')
+        
         this.state = {
-            message: 'Mensagem inicial'
+            message: '',
+            value: 0
         }
     }
 
-    updateMessage() {
+    componentDidMount() {
+        console.log('App - componentDidMount')
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('App - componentDidUpdate')
+    }
+
+    sendInfo() {
+        alert('Mensagem: ' + this.state.message + '\n' +
+            'Valor: ' + this.state.value)
+    }
+
+    onChangeMessage(event) {
+        console.log('alterou mensagem')
+
+        const newMessage = event.target.value
         this.setState({
-            message: 'Mensagem alterada'
+            message: newMessage
         })
-        console.log(this.state.message)
     }
 
     render() { 
+        console.log('App Render()')
+        
         return (
             <div>
+                Mensagem: <br />
+                <input type="text" onChange={(event) => this.onChangeMessage(event)} />
                 {this.state.message}
                 <br />
-                <input type="button" value="Alterar mensagem"
-                    onClick={() => this.updateMessage() } />
+
+                Valor: <br />
+                <input type="number" min={0} max={10}/>
+
+                <br />
+                <input type="button" value="Enviar Informações"
+                    onClick={() => this.sendInfo() } />
             </div>
         )
     }
